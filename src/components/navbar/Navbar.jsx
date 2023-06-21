@@ -5,12 +5,12 @@ import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 const Navbar = (userId) => {
   const { user, dispatch } = useContext(AuthContext);
-  // let set = false;
-  // // {
-  // //   user ? (set = true) : (set = false);
-  // // }
+
   const navigate = useNavigate();
-  const id = userId;
+  let id = 0;
+  if (user) {
+    id = user.user.user._id;
+  }
   const logout = async (e) => {
     try {
       dispatch({ type: "LOGIN_FAILURE" });
@@ -29,13 +29,13 @@ const Navbar = (userId) => {
           to={`/`}
           style={{ color: "white", textDecoration: "none" }}
         >
-          <span className="logo">The Garage</span>
+          <img src="/logo.png" alt="" className="garageLogo" />
         </Link>
 
         {user ? (
           <div>
             <Link
-              to={`/profile/${user._id}`}
+              to={`/profile/${id}`}
               style={{ color: "white", textDecoration: "none" }}
             >
               {user.username}
